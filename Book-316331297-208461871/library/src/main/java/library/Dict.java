@@ -29,6 +29,12 @@ public class Dict {
       storer.appendLine(element.getValue());
     });
   }
+  
+  public void store(Collection<Pair> ps) {
+    addAll(ps);
+    store();
+  }
+  
   public void add(Pair p) {
     pairs.add(p);
   }
