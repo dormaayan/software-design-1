@@ -38,7 +38,7 @@ public class DoubleKeyDictTest {
     //
     testDict.store(input);
     //
-    assertEquals(new Pair("1456", "1456"), testDict.findByKeys("1456", "1456").get());
+    assertEquals("1456", testDict.findByKeys("1456", "1456").get());
   }
   @Test() public void test3() throws InterruptedException {
     List<Triple> input = new ArrayList<Triple>();

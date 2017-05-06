@@ -72,8 +72,9 @@ public class DoubleKeyDict {
     return findByKey(mainKeyMap,key);
   }
   
-  public Optional<Pair> findByKeys(String key1, String key2) throws InterruptedException{
-    return findByKey(mainKeyMap,key1).stream().filter( p -> p.getKey().equals(key2)).findFirst();
+  public Optional<String> findByKeys(String key1, String key2) throws InterruptedException{
+    Optional<Pair> $ = findByKey(mainKeyMap,key1).stream().filter( p -> p.getKey().equals(key2)).findFirst();
+    return !$.isPresent() ? Optional.empty() : Optional.of($.get().getValue());
   }
   
   public List<Pair> findBySecondaryKey(String key) throws InterruptedException{
