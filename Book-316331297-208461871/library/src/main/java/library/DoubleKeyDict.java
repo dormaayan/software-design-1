@@ -22,6 +22,10 @@ public class DoubleKeyDict {
     public IntegerWrapper() {
       this.val = 0;
     }
+    
+    public String toString(){
+      return val+"";
+    }
   }
 
   public DoubleKeyDict(LineStorageFactory factory) {
@@ -78,6 +82,8 @@ public class DoubleKeyDict {
 
   private List<Pair> findByKey(Dict d,String key) throws InterruptedException {
     List<Pair> $ = new ArrayList<>();
+    if(!d.find(key).isPresent())
+      return $;
     String[] lines = d.find(key).get().split(",");
     int end = Integer.parseInt(lines[1]);
     for(int i = Integer.parseInt(lines[0]) ; i<end ;i+=2 )
