@@ -1,6 +1,8 @@
 package library;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import il.ac.technion.cs.sd.book.ext.LineStorage;
@@ -11,6 +13,7 @@ import il.ac.technion.cs.sd.book.ext.LineStorage;
 public class Dict {
   private final LineStorage storer;
   private boolean initialized = false;
+  private List<Pair> pairs = new ArrayList<>();
 
   public Dict(LineStorage storer) {
     this.storer = storer;
@@ -18,13 +21,19 @@ public class Dict {
   /** stores a list of pairs in the supplied {@link Storer}. Should only be
    * called once.
    * @param pairs pairs of key value to be stored */
-  public void store(Collection<Pair> pairs) {
+  public void store() {
     assert !initialized;
     initialized = true;
     pairs.stream().sorted().forEachOrdered(element -> {
       storer.appendLine(element.getKey());
       storer.appendLine(element.getValue());
     });
+  }
+  public void add(Pair p) {
+    pairs.add(p);
+  }
+  public void addAll(Collection<Pair> ps) {
+    pairs.addAll(ps);
   }
   /** @param key the key to be searched in the dictionary
    * @return the value that matches key or {@link Optional.empty} otherwise.

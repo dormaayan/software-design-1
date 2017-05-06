@@ -29,6 +29,7 @@ public class DoubleKeyDict {
     storer = factory.open("valuesMap");
     initialized = false;
   }
+  
   public void store(Collection<Triple> triples) {
     assert !initialized;
     initialized = true;
@@ -39,15 +40,23 @@ public class DoubleKeyDict {
       addToMap(secondaryKeyToPair, element.getKey2(), new Pair(element.getKey1(), element.getValue()));
     });
     IntegerWrapper currentLine = new IntegerWrapper();
-    mainKeyToPair.keySet().stream().sorted().forEachOrdered(key -> {
+    storeDict(mainKeyMap,mainKeyToPair, currentLine);
+    storeDict(secondaryKeyMap,secondaryKeyToPair, currentLine);
+  }
+  
+  private void storeDict(final Dict dict,final Map<String, List<Pair>> m, IntegerWrapper currentLine) {
+    m.keySet().stream().sorted().forEachOrdered(key -> {
       int startingLine = currentLine.val;
-      mainKeyToPair.get(key).stream().sorted().forEachOrdered(element -> {
+      m.get(key).stream().sorted().forEachOrdered(element -> {
         storer.appendLine(element.getKey());
         storer.appendLine(element.getValue());
         currentLine.val += 2;
       });
+      dict.add(new Pair(key,startingLine+","+currentLine));
     });
+    dict.store();
   }
+ 
   private void addToMap(final Map<String, List<Pair>> m, String key, Pair value) {
     if (!m.containsKey(key))
       m.put(key, new ArrayList<>());
