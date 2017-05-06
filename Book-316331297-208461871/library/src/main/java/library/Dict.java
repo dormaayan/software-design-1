@@ -39,6 +39,6 @@ public class Dict {
    * @return the value that matches key or {@link Optional.empty} otherwise.
    * @throws InterruptedException */
   public Optional<String> find(String key) throws InterruptedException {
-    return BinarySearch.of(storer, key);
+    return BinarySearch.of(storer, key,0,storer.numberOfLines());
   }
 }

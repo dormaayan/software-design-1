@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import il.ac.technion.cs.sd.book.ext.LineStorage;
 import il.ac.technion.cs.sd.book.ext.LineStorageFactory;
@@ -61,5 +62,26 @@ public class DoubleKeyDict {
     if (!m.containsKey(key))
       m.put(key, new ArrayList<>());
     m.get(key).add(value);
+  }
+  
+  public List<Pair> findByMainKey(String key) throws InterruptedException{
+    return findByKey(mainKeyMap,key);
+  }
+  
+  public Optional<Pair> findByKeys(String key1, String key2) throws InterruptedException{
+    return findByKey(mainKeyMap,key1).stream().filter( p -> p.getKey().equals(key2)).findFirst();
+  }
+  
+  public List<Pair> findBySecondaryKey(String key) throws InterruptedException{
+    return findByKey(secondaryKeyMap,key);
+  }
+
+  private List<Pair> findByKey(Dict d,String key) throws InterruptedException {
+    List<Pair> $ = new ArrayList<>();
+    String[] lines = d.find(key).get().split(",");
+    int end = Integer.parseInt(lines[1]);
+    for(int i = Integer.parseInt(lines[0]) ; i<end ;i+=2 )
+      $.add(new Pair(storer.read(i),storer.read(i+1)));
+    return $;
   }
 }
