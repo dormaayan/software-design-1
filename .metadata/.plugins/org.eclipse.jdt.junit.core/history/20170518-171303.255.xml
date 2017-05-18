@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="java" project="library" tests="14" started="14" failures="0" errors="0" ignored="0">
+  <testsuite name="library.DoubleKeyDictTest" time="0.056">
+    <testcase name="test0" classname="library.DoubleKeyDictTest" time="0.016"/>
+    <testcase name="test1" classname="library.DoubleKeyDictTest" time="0.0"/>
+    <testcase name="test2" classname="library.DoubleKeyDictTest" time="0.035"/>
+    <testcase name="test3" classname="library.DoubleKeyDictTest" time="0.0"/>
+    <testcase name="test4" classname="library.DoubleKeyDictTest" time="0.001"/>
+    <testcase name="test5" classname="library.DoubleKeyDictTest" time="0.003"/>
+    <testcase name="test6" classname="library.DoubleKeyDictTest" time="0.001"/>
+  </testsuite>
+  <testsuite name="library.DictTest" time="0.405">
+    <testcase name="test0" classname="library.DictTest" time="0.0"/>
+    <testcase name="test1" classname="library.DictTest" time="0.007"/>
+    <testcase name="test2" classname="library.DictTest" time="0.002"/>
+    <testcase name="test3" classname="library.DictTest" time="0.0"/>
+    <testcase name="mockTest1" classname="library.DictTest" time="0.391"/>
+    <testcase name="mockTest2" classname="library.DictTest" time="0.001"/>
+    <testcase name="mockTest3" classname="library.DictTest" time="0.004"/>
+  </testsuite>
+</testrun>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;nList&apos; in &apos;il.ac.technion.cs.sd.book.app.BookScoreInitializerImpl.setup(...)&apos; to &apos;reviewers&apos;&#x0A;- Original project: &apos;book-app&apos;&#x0A;- Original element: &apos;il.ac.technion.cs.sd.book.app.BookScoreInitializerImpl.setup(String).nList&apos;&#x0A;- Renamed element: &apos;nList&apos;&#x0A;- Update references to refactored element" description="Rename local variable &apos;nList&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src\/main\/java&lt;il.ac.technion.cs.sd.book.app{BookScoreInitializerImpl.java[BookScoreInitializerImpl~setup~QString;@nList!1130!1181!1139!1143!QNodeList;!0!false" name="reviewers" references="true" stamp="1495119126687" version="1.0"/>
+</session>
