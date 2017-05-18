@@ -16,7 +16,7 @@ public class DoubleKeyDictTest {
     input.add(new Triple("b", "Niv", "10203040"));
     input.add(new Triple("b", "Dor", "1020304050"));
     DoubleKeyDict testDict = new DoubleKeyDict(new TestStorerFactory());
-    testDict.store(input);
+    testDict.addAndStore(input);
     assertEquals(2, testDict.findByMainKey("b").size());
   }
   @Test() public void test1() throws InterruptedException {
@@ -25,7 +25,7 @@ public class DoubleKeyDictTest {
     input.add(new Triple("54321", "Niv", "a2"));
     DoubleKeyDict testDict = new DoubleKeyDict(new TestStorerFactory());
     //
-    testDict.store(input);
+    testDict.addAndStore(input);
     //
     assertTrue(testDict.findByMainKey("asdf").isEmpty());
   }
@@ -36,7 +36,7 @@ public class DoubleKeyDictTest {
     }
     DoubleKeyDict testDict = new DoubleKeyDict(new TestStorerFactory());
     //
-    testDict.store(input);
+    testDict.addAndStore(input);
     //
     assertEquals("1456", testDict.findByKeys("1456", "1456").get());
   }
@@ -45,7 +45,7 @@ public class DoubleKeyDictTest {
     input.add(new Triple("b", "Niv", "c"));
     input.add(new Triple("a", "Dor", "c"));
     DoubleKeyDict testDict = new DoubleKeyDict(new TestStorerFactory());
-    testDict.store(input);
+    testDict.addAndStore(input);
     //
     assertEquals(new Pair("Niv", "c"), testDict.findByMainKey("b").get(0));
   }
@@ -54,7 +54,7 @@ public class DoubleKeyDictTest {
     input.add(new Triple("b", "Niv", "c"));
     input.add(new Triple("a", "Dor", "c"));
     DoubleKeyDict testDict = new DoubleKeyDict(new TestStorerFactory());
-    testDict.store(input);
+    testDict.addAndStore(input);
     //
     assertEquals(new Pair("a", "c"), testDict.findBySecondaryKey("Dor").get(0));
   }
@@ -64,7 +64,7 @@ public class DoubleKeyDictTest {
     input.add(new Triple("b", "Dor", "c"));
     input.add(new Triple("c", "x", "y"));
     DoubleKeyDict testDict = new DoubleKeyDict(new TestStorerFactory());
-    testDict.store(input);
+    testDict.addAndStore(input);
     //
     List<Pair> lst = new ArrayList<>();
     lst.add(new Pair("Dor", "c"));
@@ -81,7 +81,7 @@ public class DoubleKeyDictTest {
     input.add(new Triple("b", "x", "c"));
     input.add(new Triple("c", "x", "y"));
     DoubleKeyDict testDict = new DoubleKeyDict(new TestStorerFactory());
-    testDict.store(input);
+    testDict.addAndStore(input);
     //
     List<Pair> lst = new ArrayList<>();
     lst.add(new Pair("b", "c"));

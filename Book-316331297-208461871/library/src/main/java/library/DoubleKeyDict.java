@@ -15,6 +15,7 @@ public class DoubleKeyDict {
 	private Dict secondaryKeyMap;
 	private LineStorage storer;
 	private boolean initialized;
+	private List<Triple> triples = new ArrayList<>();
 
 	private class IntegerWrapper {
 		public int val;
@@ -35,7 +36,47 @@ public class DoubleKeyDict {
 		initialized = false;
 	}
 
-	public void store(Collection<Triple> triples) {
+	/**
+	 * adds a {@link Triple} to the {@link DoubleKeyDict}. Should only be called
+	 * before a store operation Does not save the data persistently.
+	 * 
+	 * @param t
+	 *            the {@link Triple} to be stored
+	 */
+	public void add(Triple t) {
+		assert !initialized;
+		triples.add(t);
+	}
+
+	/**
+	 * adds {@link Triple}s to the {@link DoubleKeyDict}. Should only be called
+	 * before a store operation Does not save the data persistently.
+	 * 
+	 * @param ts
+	 *            the {@link Triple}s to be stored
+	 */
+	public void addAll(Collection<Triple> ts) {
+		assert !initialized;
+		triples.addAll(ts);
+	}
+
+	/**
+	 * Performs an {@link DoubleKeyDict#addAll(Collection)} operation, followed
+	 * by a {@link DoubleKeyDict#store()}.
+	 * 
+	 * @param triples
+	 *            the {@link Triple}s to be added
+	 */
+	public void addAndStore(Collection<Triple> ts) {
+		addAll(ts);
+		store();
+	}
+
+	/**
+	 * Performs the persistent write using the {@link LineStorage}, and prevents further writes
+	 * to the {@link DoubleKeyDict}
+	 */
+	public void store() {
 		assert !initialized;
 		initialized = true;
 		final Map<String, List<Pair>> mainKeyToPair = new HashMap<>();
@@ -77,7 +118,7 @@ public class DoubleKeyDict {
 		if (!o.isPresent())
 			return Optional.empty();
 		String[] lines = o.get().split(",");
-		return BinarySearch.of(storer, key2 ,Integer.parseInt(lines[0]),Integer.parseInt(lines[1]));
+		return BinarySearch.of(storer, key2, Integer.parseInt(lines[0]), Integer.parseInt(lines[1]));
 	}
 
 	public List<Pair> findBySecondaryKey(String key) throws InterruptedException {
