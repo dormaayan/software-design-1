@@ -8,6 +8,7 @@ import java.util.OptionalDouble;
 import java.util.stream.Collectors;
 
 import library.DoubleKeyDict;
+import library.Pair;
 import library.TestStorerFactory;
 
 public class BookScoreReaderImpl implements BookScoreReader {
@@ -34,7 +35,7 @@ public class BookScoreReaderImpl implements BookScoreReader {
   
   @Override public List<String> getReviewedBooks(String reviewerId) {
     try {
-      return dict.findByMainKey(reviewerId).stream().map(p -> p.getKey()).collect(Collectors.toList());
+      return dict.findByMainKey(reviewerId).stream().map(Pair::getKey).collect(Collectors.toList());
     } catch (InterruptedException e) {
       throw new RuntimeException();
     }
@@ -42,9 +43,7 @@ public class BookScoreReaderImpl implements BookScoreReader {
   
   @Override public Map<String, Integer> getAllReviewsByReviewer(String reviewerId) {
     try {
-      Map<String, Integer> $ = new HashMap<>();
-      dict.findByMainKey(reviewerId).stream().forEach(p -> $.put(p.getKey(), Integer.parseInt(p.getValue())));
-      return $;
+    	return dict.findByMainKey(reviewerId).stream().collect(Collectors.toMap(Pair::getKey, p ->Integer.parseInt(p.getValue())));
     } catch (InterruptedException e) {
       throw new RuntimeException();
     }
@@ -61,7 +60,7 @@ public class BookScoreReaderImpl implements BookScoreReader {
   
   @Override public List<String> getReviewers(String bookId) {
     try {
-      return dict.findBySecondaryKey(bookId).stream().map(p -> p.getKey()).collect(Collectors.toList());
+      return dict.findBySecondaryKey(bookId).stream().map(Pair::getKey).collect(Collectors.toList());
     } catch (InterruptedException e) {
       throw new RuntimeException();
     }
@@ -69,9 +68,7 @@ public class BookScoreReaderImpl implements BookScoreReader {
   
   @Override public Map<String, Integer> getReviewsForBook(String bookId) {
     try {
-      Map<String, Integer> $ = new HashMap<>();
-      dict.findBySecondaryKey(bookId).stream().forEach(p -> $.put(p.getKey(), Integer.parseInt(p.getValue())));
-      return $;
+    	return dict.findBySecondaryKey(bookId).stream().collect(Collectors.toMap(Pair::getKey, p ->Integer.parseInt(p.getValue())));
     } catch (InterruptedException e) {
       throw new RuntimeException();
     }
