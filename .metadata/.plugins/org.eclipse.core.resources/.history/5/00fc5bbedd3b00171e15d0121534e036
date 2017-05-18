@@ -15,6 +15,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
+import il.ac.technion.cs.sd.book.ext.LineStorageFactory;
 import library.DoubleKeyDict;
 import library.Pair;
 import library.Triple;;
@@ -58,8 +59,7 @@ public class BookScoreInitializerImpl implements BookScoreInitializer {
 			tmpStore.entrySet().stream().forEach(x -> {
 				lst.add(new Triple(x.getKey().getKey(), x.getKey().getValue(), x.getValue()));
 			});
-			System.out.println(lst);
-			//dict.addAndStore(lst);
+			dict.addAndStore(lst);
 
 		} catch (Exception e) {
 			e.printStackTrace();
