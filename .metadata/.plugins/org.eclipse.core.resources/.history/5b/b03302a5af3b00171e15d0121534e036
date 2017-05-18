@@ -1,0 +1,13 @@
+package il.ac.technion.cs.sd.book.app;
+
+import org.w3c.dom.Document;
+
+public class BookScoreInitializerImpl implements BookScoreInitializer {
+
+	@Override
+	public void setup(String xmlData) {
+		Document d;
+		
+	}
+
+}

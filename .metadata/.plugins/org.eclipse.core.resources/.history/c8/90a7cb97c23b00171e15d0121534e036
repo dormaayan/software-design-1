@@ -1,0 +1,14 @@
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+import il.ac.technion.cs.sd.book.app.BookScoreInitializerImpl;
+
+public class BookScoreInitializerTest {
+
+	@Test
+	public void test() {
+		BookScoreInitializerImpl init = new BookScoreInitializerImpl();
+	}
+
+}
