@@ -58,7 +58,7 @@ public class BookScoreInitializerImpl implements BookScoreInitializer {
 			tmpStore.entrySet().stream().forEach(x -> {
 				lst.add(new Triple(x.getKey().getKey(), x.getKey().getValue(), x.getValue()));
 			});
-			//System.out.println(tmpStore.containsKey(new Pair("123", "Foobar")));
+			System.out.println(new Pair("123","Foobar").equals(new Pair("123","Foobar"))));
 			System.out.println(tmpStore);
 			//dict.addAndStore(lst);
 

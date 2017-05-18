@@ -59,8 +59,8 @@ public class BookScoreInitializerImpl implements BookScoreInitializer {
 				lst.add(new Triple(x.getKey().getKey(), x.getKey().getValue(), x.getValue()));
 			});
 			//System.out.println(tmpStore.containsKey(new Pair("123", "Foobar")));
-			System.out.println(tmpStore);
-			//dict.addAndStore(lst);
+			//System.out.println(tmpStore);
+			dict.addAndStore(lst);
 
 		} catch (Exception e) {
 			e.printStackTrace();
