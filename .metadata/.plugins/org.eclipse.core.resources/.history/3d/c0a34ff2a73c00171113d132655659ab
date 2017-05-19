@@ -1,0 +1,127 @@
+package il.ac.technion.cs.sd.book.test;
+
+import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.OptionalDouble;
+
+import org.junit.Test;
+
+import il.ac.technion.cs.sd.book.app.BookScoreReader;
+import il.ac.technion.cs.sd.book.app.BookScoreReaderImpl;
+import library.IDoubleKeyDict;
+import library.Triple;
+
+public class BookScoreReaderTest {
+
+	@Test
+	public void test0() {
+		IDoubleKeyDict dict = new TestDoubleKeyDict();
+		List<Triple> lst = new ArrayList<>();
+		lst.add(new Triple("123", "The book", "9"));
+		lst.add(new Triple("921", "The best", "1"));
+		lst.add(new Triple("123", "The best", "4"));
+		dict.addAndStore(lst);
+		BookScoreReader reader = new BookScoreReaderImpl(dict);
+		assertEquals(reader.getScoreAverageForReviewer("123"), OptionalDouble.of(6.5));
+
+	}
+
+	@Test
+	public void test1() {
+		IDoubleKeyDict dict = new TestDoubleKeyDict();
+		List<Triple> lst = new ArrayList<>();
+		lst.add(new Triple("123", "The book", "9"));
+		lst.add(new Triple("921", "The best", "1"));
+		lst.add(new Triple("123", "The best", "4"));
+		dict.addAndStore(lst);
+		BookScoreReader reader = new BookScoreReaderImpl(dict);
+		assert reader.gaveReview("921", "The best");
+
+	}
+
+	@Test
+	public void test2() {
+		IDoubleKeyDict dict = new TestDoubleKeyDict();
+		List<Triple> lst = new ArrayList<>();
+		lst.add(new Triple("123", "The book", "9"));
+		lst.add(new Triple("921", "The best", "1"));
+		lst.add(new Triple("123", "The best", "4"));
+		dict.addAndStore(lst);
+		BookScoreReader reader = new BookScoreReaderImpl(dict);
+		assert !reader.gaveReview("921", "The besti");
+
+	}
+
+	@Test
+	public void test3() {
+		IDoubleKeyDict dict = new TestDoubleKeyDict();
+		List<Triple> lst = new ArrayList<>();
+		lst.add(new Triple("123", "The book", "9"));
+		lst.add(new Triple("921", "The best", "1"));
+		lst.add(new Triple("123", "The best", "4"));
+		lst.add(new Triple("733", "GWB", "6"));
+		lst.add(new Triple("734", "GWB", "9"));
+
+		dict.addAndStore(lst);
+		BookScoreReader reader = new BookScoreReaderImpl(dict);
+		assertEquals(reader.getScore("734", "GWB"), OptionalDouble.of(9.0));
+
+	}
+
+	@Test
+	public void test4() {
+		IDoubleKeyDict dict = new TestDoubleKeyDict();
+		List<Triple> lst = new ArrayList<>();
+		lst.add(new Triple("123", "The book", "9"));
+		lst.add(new Triple("921", "GWB", "1"));
+		lst.add(new Triple("123", "The best", "4"));
+		lst.add(new Triple("733", "GWB", "6"));
+		lst.add(new Triple("734", "GWB", "8"));
+
+		dict.addAndStore(lst);
+		BookScoreReader reader = new BookScoreReaderImpl(dict);
+		assertEquals(reader.getAverageReviewScoreForBook("GWB"), OptionalDouble.of(5.0));
+
+	}
+
+	@Test
+	public void test5() {
+		IDoubleKeyDict dict = new TestDoubleKeyDict();
+		List<Triple> lst = new ArrayList<>();
+		lst.add(new Triple("123", "The book", "9"));
+		lst.add(new Triple("921", "GWB", "1"));
+		lst.add(new Triple("123", "The best", "4"));
+		lst.add(new Triple("733", "GWB", "6"));
+		lst.add(new Triple("734", "GWB", "8"));
+
+		dict.addAndStore(lst);
+		BookScoreReader reader = new BookScoreReaderImpl(dict);
+		assertEquals(reader.getAllReviewsByReviewer("123").size(), 2);
+
+	}
+
+	@Test
+	public void test6() {
+		IDoubleKeyDict dict = new TestDoubleKeyDict();
+		List<Triple> lst = new ArrayList<>();
+		lst.add(new Triple("123", "The book", "9"));
+		lst.add(new Triple("921", "GWB", "1"));
+		lst.add(new Triple("123", "The best", "4"));
+		lst.add(new Triple("733", "GWB", "6"));
+		lst.add(new Triple("734", "GWB", "8"));
+
+		dict.addAndStore(lst);
+		BookScoreReader reader = new BookScoreReaderImpl(dict);
+		List<String> res = new ArrayList<>();
+		res.add("733");
+		res.add("734");
+		res.add("921");
+
+		assertEquals(reader.getReviewers("GWB"), res);
+
+	}
+
+}

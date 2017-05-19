@@ -7,14 +7,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import com.google.inject.Guice;
 import com.google.inject.Inject;
-import com.google.inject.Injector;
 
 import il.ac.technion.cs.sd.book.ext.LineStorage;
 import il.ac.technion.cs.sd.book.ext.LineStorageFactory;
 
-public class DoubleKeyDict {
+public class DoubleKeyDict implements IDoubleKeyDict {
 	private Dict mainKeyMap;
 	private Dict secondaryKeyMap;
 	private LineStorage storer;

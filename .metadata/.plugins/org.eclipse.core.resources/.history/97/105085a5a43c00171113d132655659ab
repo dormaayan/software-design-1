@@ -1,0 +1,88 @@
+package il.ac.technion.cs.sd.book.app;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.OptionalDouble;
+import java.util.stream.Collectors;
+
+import library.DoubleKeyDict;
+import library.IDoubleKeyDict;
+import library.Pair;
+import library.TestStorerFactory;
+
+public class BookScoreReaderImpl implements BookScoreReader {
+  
+  // TODO: use guice
+  private final IDoubleKeyDict dict = new DoubleKeyDict(new TestStorerFactory());
+
+  public BookScoreReaderImpl (IDoubleKeyDict dict){
+	  
+  }
+  @Override public boolean gaveReview(String reviewerId, String bookId) {
+    try {
+      return dict.findByKeys(reviewerId, bookId).isPresent();
+    } catch (InterruptedException e) {
+      throw new RuntimeException();
+    }
+  }
+  
+  @Override public OptionalDouble getScore(String reviewerId, String bookId) {
+    try {
+      Optional<String> $ = dict.findByKeys(reviewerId, bookId);
+      return !$.isPresent() ? OptionalDouble.empty() : OptionalDouble.of(Double.parseDouble($.get()));
+    } catch (InterruptedException e) {
+      throw new RuntimeException();
+    }
+  }
+  
+  @Override public List<String> getReviewedBooks(String reviewerId) {
+    try {
+      return dict.findByMainKey(reviewerId).stream().map(Pair::getKey).collect(Collectors.toList());
+    } catch (InterruptedException e) {
+      throw new RuntimeException();
+    }
+  }
+  
+  @Override public Map<String, Integer> getAllReviewsByReviewer(String reviewerId) {
+    try {
+    	return dict.findByMainKey(reviewerId).stream().collect(Collectors.toMap(Pair::getKey, p ->Integer.parseInt(p.getValue())));
+    } catch (InterruptedException e) {
+      throw new RuntimeException();
+    }
+  }
+  
+  @Override public OptionalDouble getScoreAverageForReviewer(String reviewerId) {
+    try {
+      List<Double> $ = dict.findByMainKey(reviewerId).stream().map(p -> Double.parseDouble(p.getValue())).collect(Collectors.toList());
+      return $.isEmpty() ? OptionalDouble.empty() : OptionalDouble.of(($.stream().reduce(0.0, Double::sum)) / $.size());
+    } catch (InterruptedException e) {
+      throw new RuntimeException();
+    }
+  }
+  
+  @Override public List<String> getReviewers(String bookId) {
+    try {
+      return dict.findBySecondaryKey(bookId).stream().map(Pair::getKey).collect(Collectors.toList());
+    } catch (InterruptedException e) {
+      throw new RuntimeException();
+    }
+  }
+  
+  @Override public Map<String, Integer> getReviewsForBook(String bookId) {
+    try {
+    	return dict.findBySecondaryKey(bookId).stream().collect(Collectors.toMap(Pair::getKey, p ->Integer.parseInt(p.getValue())));
+    } catch (InterruptedException e) {
+      throw new RuntimeException();
+    }
+  }
+  
+  @Override public OptionalDouble getAverageReviewScoreForBook(String bookId) {
+    try {
+      List<Double> $ = dict.findBySecondaryKey(bookId).stream().map(p -> Double.parseDouble(p.getValue())).collect(Collectors.toList());
+      return $.isEmpty() ? OptionalDouble.empty() : OptionalDouble.of(($.stream().reduce(0.0, Double::sum)) / $.size());
+    } catch (InterruptedException e) {
+      throw new RuntimeException();
+    }
+  }
+}

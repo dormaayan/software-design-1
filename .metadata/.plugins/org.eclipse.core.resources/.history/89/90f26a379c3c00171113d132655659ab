@@ -1,0 +1,15 @@
+package il.ac.technion.cs.sd.book.test;
+
+import il.ac.technion.cs.sd.book.ext.LineStorageFactory;
+import library.DoubleKeyDict;
+
+public class TestDoubleKeyDict extends DoubleKeyDict {
+
+	public TestDoubleKeyDict(LineStorageFactory factory) {
+		super(factory);
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+
+}

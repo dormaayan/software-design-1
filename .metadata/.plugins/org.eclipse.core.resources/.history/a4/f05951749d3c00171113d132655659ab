@@ -1,0 +1,11 @@
+package il.ac.technion.cs.sd.book.test;
+
+import il.ac.technion.cs.sd.book.ext.LineStorageFactory;
+import library.DoubleKeyDict;
+import library.DoubleKeyDictInterface;
+
+public class TestDoubleKeyDict implements DoubleKeyDictInterface {
+
+	
+
+}

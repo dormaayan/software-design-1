@@ -1,0 +1,66 @@
+package il.ac.technion.cs.sd.book.test;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+import il.ac.technion.cs.sd.book.ext.LineStorageFactory;
+import library.DoubleKeyDict;
+import library.DoubleKeyDictInterface;
+import library.Pair;
+import library.Triple;
+
+public class TestDoubleKeyDict implements DoubleKeyDictInterface {
+
+	private Map<String,Pair> mainKeyDict;
+	private Map<String,Pair> secondaryKeyDict;
+
+	public TestDoubleKeyDict(){
+		
+	}
+	@Override
+	public void add(Triple t) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addAll(Collection<Triple> ts) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addAndStore(Collection<Triple> ts) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void store() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Pair> findByMainKey(String key) throws InterruptedException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Optional<String> findByKeys(String key1, String key2) throws InterruptedException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Pair> findBySecondaryKey(String key) throws InterruptedException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+
+}

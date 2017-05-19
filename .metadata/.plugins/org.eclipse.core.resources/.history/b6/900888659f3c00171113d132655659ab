@@ -1,0 +1,80 @@
+package il.ac.technion.cs.sd.book.test;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+import il.ac.technion.cs.sd.book.ext.LineStorageFactory;
+import library.DoubleKeyDict;
+import library.DoubleKeyDictInterface;
+import library.Pair;
+import library.Triple;
+
+public class TestDoubleKeyDict implements DoubleKeyDictInterface {
+
+	private Map<String, List<Pair>> mainKeyDict;
+	private Map<String, List<Pair>> secondaryKeyDict;
+	private boolean initialized;
+
+	public TestDoubleKeyDict() {
+		mainKeyDict = new HashMap<>();
+		secondaryKeyDict = new HashMap<>();
+		initialized = false;
+	}
+
+	@Override
+	public void add(Triple t) {
+		if (!initialized) {
+			if (mainKeyDict.containsKey(t.getKey1()))
+				mainKeyDict.put(t.getKey1(), new ArrayList<>());
+			mainKeyDict.get(t.getKey1()).add(new Pair(t.getKey2(), t.getValue()));
+
+			if (secondaryKeyDict.containsKey(t.getKey2()))
+				secondaryKeyDict.put(t.getKey2(), new ArrayList<>());
+			secondaryKeyDict.get(t.getKey2()).add(new Pair(t.getKey1(), t.getValue()));
+		}
+
+	}
+
+	@Override
+	public void addAll(Collection<Triple> ts) {
+		ts.stream().forEach(t -> this.add(t));
+
+	}
+
+	@Override
+	public void addAndStore(Collection<Triple> ts) {
+		this.addAll(ts);
+		this.store();
+
+	}
+
+	@Override
+	public void store() {
+		initialized = true;
+	}
+
+	@Override
+	public List<Pair> findByMainKey(String key) throws InterruptedException {
+		return this.mainKeyDict.get(key);
+	}
+
+	@Override
+	public Optional<String> findByKeys(String key1, String key2) throws InterruptedException {
+		List<Pair> vals = this.findByMainKey(key1);
+		for(Pair p: vals){
+			if(p.getKey().equals(key2))
+				return Optional.of(p.getValue());
+		}
+		return Optional.empty();
+	}
+
+	@Override
+	public List<Pair> findBySecondaryKey(String key) throws InterruptedException {
+		return this.secondaryKeyDict.get(key);
+	}
+
+}
