@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -15,6 +17,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
+import il.ac.technion.cs.sd.book.ext.LineStorageFactory;
 import library.DoubleKeyDict;
 import library.Pair;
 import library.Triple;;
@@ -25,8 +28,8 @@ public class BookScoreInitializerImpl implements BookScoreInitializer {
 	private Map<Pair, String> tmpStore;
 	private final String REVIEWER = "Reviewer";
 
-	public BookScoreInitializerImpl() {
-		// this(new DoubleKeyDict());
+	public BookScoreInitializerImpl(LineStorageFactory factory) {
+		this(new DoubleKeyDict(factory));
 		tmpStore = new HashMap<>();
 	}
 
@@ -54,13 +57,11 @@ public class BookScoreInitializerImpl implements BookScoreInitializer {
 				}
 			}
 
-			List<Triple> lst = new ArrayList<>();
-			tmpStore.entrySet().stream().forEach(x -> {
-				lst.add(new Triple(x.getKey().getKey(), x.getKey().getValue(), x.getValue()));
-			});
-			//System.out.println(tmpStore.containsKey(new Pair("123", "Foobar")));
-			System.out.println(tmpStore);
-			//dict.addAndStore(lst);
+			List<Triple> lst = tmpStore.entrySet().stream()
+					.map(x -> new Triple(x.getKey().getKey(), x.getKey().getValue(), x.getValue()))
+					.collect(Collectors.toList());
+			// System.out.println(tmpStore);
+			dict.addAndStore(lst);
 
 		} catch (Exception e) {
 			e.printStackTrace();
