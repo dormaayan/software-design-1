@@ -10,17 +10,22 @@ import java.util.Optional;
 
 import org.junit.Test;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+
 import il.ac.technion.cs.sd.book.ext.LineStorage;
 
 import static org.mockito.Mockito.*;
 
 public class DictTest {
+	static Injector injector = Guice.createInjector(new TestLineStorageModule());
+
 	@Test()
 	public void test0() throws InterruptedException {
 		List<Pair> input = new ArrayList<Pair>();
 		input.add(new Pair("a", "Dor"));
 		input.add(new Pair("b", "Niv"));
-		Dict testDict = new Dict(new TestStorer());
+		Dict testDict = injector.getInstance(Dict.class);
 
 		testDict.store(input);
 		//
@@ -32,7 +37,7 @@ public class DictTest {
 		List<Pair> input = new ArrayList<Pair>();
 		input.add(new Pair("a", "Dor"));
 		input.add(new Pair("b", "Niv"));
-		Dict testDict = new Dict(new TestStorer());
+		Dict testDict = injector.getInstance(Dict.class);
 		//
 		testDict.store(input);
 		//
@@ -45,28 +50,25 @@ public class DictTest {
 		for (int i = 0; i < 3339; i++) {
 			input.add(new Pair(i + "", i + ""));
 		}
-		Dict testDict = new Dict(new TestStorer());
+		Dict testDict = injector.getInstance(Dict.class);
 		//
 		testDict.store(input);
 		//
 		assertEquals(1456 + "", testDict.find("1456").get());
 	}
-	
+
 	@Test()
 	public void test3() throws InterruptedException {
 		List<Pair> input = new ArrayList<Pair>();
 		input.add(new Pair("b", "Niv"));
 		input.add(new Pair("a", "Dor"));
-		Dict testDict = new Dict(new TestStorer());
+		Dict testDict = injector.getInstance(Dict.class);
 
 		testDict.store(input);
 		//
 		assertEquals("Niv", testDict.find("b").get());
 	}
-	
-	
-	
-	
+
 	// a test using mocking to ensure the storer is used when store is called
 	@Test
 	public void mockTest1() {
@@ -90,7 +92,7 @@ public class DictTest {
 		List<Pair> input = new ArrayList<Pair>();
 		input.add(new Pair("a", "Niv"));
 		input.add(new Pair("b", "Dor"));
-    LineStorage mockStore = mock(LineStorage.class);
+		LineStorage mockStore = mock(LineStorage.class);
 		Dict testDict = new Dict(mockStore);
 		//
 		testDict.store(input);
@@ -105,7 +107,7 @@ public class DictTest {
 		List<Pair> input = new ArrayList<Pair>();
 		input.add(new Pair("a", "Niv"));
 		input.add(new Pair("b", "Dor"));
-    LineStorage mockStore = mock(LineStorage.class);
+		LineStorage mockStore = mock(LineStorage.class);
 		Dict testDict = new Dict(mockStore);
 		//
 		testDict.store(input);

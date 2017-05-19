@@ -17,6 +17,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
+import com.google.inject.Inject;
+
 import il.ac.technion.cs.sd.book.ext.LineStorageFactory;
 import library.DoubleKeyDict;
 import library.Pair;
@@ -27,7 +29,7 @@ public class BookScoreInitializerImpl implements BookScoreInitializer {
 	private DoubleKeyDict dict;
 	private Map<Pair, String> tmpStore;
 	private final String REVIEWER = "Reviewer";
-
+	@Inject
 	public BookScoreInitializerImpl(LineStorageFactory factory) {
 		this(new DoubleKeyDict(factory));
 		tmpStore = new HashMap<>();
@@ -60,7 +62,7 @@ public class BookScoreInitializerImpl implements BookScoreInitializer {
 			List<Triple> lst = tmpStore.entrySet().stream()
 					.map(x -> new Triple(x.getKey().getKey(), x.getKey().getValue(), x.getValue()))
 					.collect(Collectors.toList());
-			// System.out.println(tmpStore);
+			 System.out.println(tmpStore);
 			dict.addAndStore(lst);
 
 		} catch (Exception e) {

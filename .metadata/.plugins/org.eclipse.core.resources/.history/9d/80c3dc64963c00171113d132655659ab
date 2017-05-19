@@ -1,0 +1,13 @@
+package il.ac.technion.cs.sd.book.app;
+
+import com.google.inject.AbstractModule;
+
+public class LineStorageModule extends AbstractModule {
+
+	@Override
+	protected void configure() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

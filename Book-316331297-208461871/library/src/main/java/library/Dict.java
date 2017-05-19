@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+import com.google.inject.Inject;
+
 import il.ac.technion.cs.sd.book.ext.LineStorage;
 
 /**
@@ -17,6 +19,7 @@ public class Dict {
 	private boolean initialized = false;
 	private List<Pair> pairs = new ArrayList<>();
 
+	@Inject
 	public Dict(LineStorage storer) {
 		this.storer = storer;
 	}

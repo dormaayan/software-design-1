@@ -7,6 +7,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import com.google.inject.Guice;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
+
 import il.ac.technion.cs.sd.book.ext.LineStorage;
 import il.ac.technion.cs.sd.book.ext.LineStorageFactory;
 
@@ -29,6 +33,7 @@ public class DoubleKeyDict {
 		}
 	}
 
+	@Inject
 	public DoubleKeyDict(LineStorageFactory factory) {
 		mainKeyMap = new Dict(factory.open("mainKeyMap"));
 		secondaryKeyMap = new Dict(factory.open("secondaryKeyMap"));
@@ -73,8 +78,8 @@ public class DoubleKeyDict {
 	}
 
 	/**
-	 * Performs the persistent write using the {@link LineStorage}, and prevents further writes
-	 * to the {@link DoubleKeyDict}
+	 * Performs the persistent write using the {@link LineStorage}, and prevents
+	 * further writes to the {@link DoubleKeyDict}
 	 */
 	public void store() {
 		assert !initialized;
