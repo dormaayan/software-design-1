@@ -64,7 +64,6 @@ public class BookScoreInitializerImpl implements BookScoreInitializer {
 			List<Triple> lst = tmpStore.entrySet().stream()
 					.map(x -> new Triple(x.getKey().getKey(), x.getKey().getValue(), x.getValue()))
 					.collect(Collectors.toList());
-			System.out.println(tmpStore);
 			dict.addAndStore(lst);
 
 		} catch (Exception e) {

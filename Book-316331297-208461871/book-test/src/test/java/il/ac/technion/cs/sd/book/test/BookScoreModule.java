@@ -7,7 +7,6 @@ import il.ac.technion.cs.sd.book.app.BookScoreInitializerImpl;
 import il.ac.technion.cs.sd.book.app.BookScoreReader;
 import il.ac.technion.cs.sd.book.app.BookScoreReaderImpl;
 import library.DoubleKeyDict;
-import library.DoubleKeyDictTest;
 import library.IDoubleKeyDict;
 
 // This module is in the testing project, so that it could easily bind all dependencies from all levels.
