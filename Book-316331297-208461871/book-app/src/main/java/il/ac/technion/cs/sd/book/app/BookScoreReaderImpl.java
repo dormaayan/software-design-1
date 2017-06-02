@@ -11,7 +11,6 @@ import com.google.inject.Inject;
 import library.DoubleKeyDict;
 import library.IDoubleKeyDict;
 import library.Pair;
-import library.TestStorerFactory;
 
 public class BookScoreReaderImpl implements BookScoreReader {
 
